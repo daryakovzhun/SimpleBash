@@ -1,0 +1,485 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - check_res - grep/s21_grep.c</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">grep</a> - s21_grep.c<span style="font-size: 80%;"> (source / <a href="s21_grep.c.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">check_res</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">268</td>
+            <td class="headerCovTableEntry">282</td>
+            <td class="headerCovTableEntryHi">95.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2022-06-17 16:25:37</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //  Copyright rosanabr 2022</a>
+<a name="2"><span class="lineNum">       2 </span>            : </a>
+<a name="3"><span class="lineNum">       3 </span>            : #include &quot;s21_grep.h&quot;</a>
+<a name="4"><span class="lineNum">       4 </span>            : </a>
+<a name="5"><span class="lineNum">       5 </span><span class="lineCov">        223 : int find_e_or_f(char *argv[], int argc) {</span></a>
+<a name="6"><span class="lineNum">       6 </span><span class="lineCov">        223 :     int search = 0;</span></a>
+<a name="7"><span class="lineNum">       7 </span><span class="lineCov">        943 :     for (int i = 1; i &lt; argc; i++) {</span></a>
+<a name="8"><span class="lineNum">       8 </span><span class="lineCov">        783 :         if (argv[i][0] == '-' &amp;&amp; (strchr(argv[i], 'e') || strchr(argv[i], 'f'))) {</span></a>
+<a name="9"><span class="lineNum">       9 </span><span class="lineCov">         63 :             search = 1;</span></a>
+<a name="10"><span class="lineNum">      10 </span><span class="lineCov">         63 :             break;</span></a>
+<a name="11"><span class="lineNum">      11 </span>            :         }</a>
+<a name="12"><span class="lineNum">      12 </span>            :     }</a>
+<a name="13"><span class="lineNum">      13 </span><span class="lineCov">        223 :     return search;</span></a>
+<a name="14"><span class="lineNum">      14 </span>            : }</a>
+<a name="15"><span class="lineNum">      15 </span>            : </a>
+<a name="16"><span class="lineNum">      16 </span><span class="lineCov">         45 : void reg_from_file(struct list* list_find, char* file_name) {</span></a>
+<a name="17"><span class="lineNum">      17 </span><span class="lineCov">         45 :     struct list* list_f = list_find;</span></a>
+<a name="18"><span class="lineNum">      18 </span>            :     FILE* file;</a>
+<a name="19"><span class="lineNum">      19 </span><span class="lineCov">         45 :     char *buffer = NULL;</span></a>
+<a name="20"><span class="lineNum">      20 </span><span class="lineCov">         45 :     size_t len_buffer = 0;</span></a>
+<a name="21"><span class="lineNum">      21 </span><span class="lineCov">         45 :     file = fopen(file_name, &quot;r&quot;);</span></a>
+<a name="22"><span class="lineNum">      22 </span><span class="lineCov">         45 :     if (file) {</span></a>
+<a name="23"><span class="lineNum">      23 </span>            :         int count_read;</a>
+<a name="24"><span class="lineNum">      24 </span><span class="lineCov">        225 :         while (!feof(file) &amp;&amp; (count_read = getline(&amp;buffer, &amp;len_buffer, file)) &gt; 0) {</span></a>
+<a name="25"><span class="lineNum">      25 </span><span class="lineCov">        180 :                 size_t len = strlen(buffer);</span></a>
+<a name="26"><span class="lineNum">      26 </span><span class="lineCov">        180 :                 if (len &gt; 1 &amp;&amp; buffer[len - 1] == '\n') {</span></a>
+<a name="27"><span class="lineNum">      27 </span><span class="lineCov">        180 :                     buffer[len - 1] = '\0';</span></a>
+<a name="28"><span class="lineNum">      28 </span>            :                 }</a>
+<a name="29"><span class="lineNum">      29 </span><span class="lineCov">        180 :                 list_f = add(list_f, buffer, 1);</span></a>
+<a name="30"><span class="lineNum">      30 </span>            :         }</a>
+<a name="31"><span class="lineNum">      31 </span>            :     } else {</a>
+<a name="32"><span class="lineNum">      32 </span><span class="lineNoCov">          0 :         fprintf(stderr, &quot;grep: %s: No such file or directory\n&quot;, file_name);</span></a>
+<a name="33"><span class="lineNum">      33 </span>            :     }</a>
+<a name="34"><span class="lineNum">      34 </span><span class="lineCov">         45 :     free(buffer);</span></a>
+<a name="35"><span class="lineNum">      35 </span><span class="lineCov">         45 : }</span></a>
+<a name="36"><span class="lineNum">      36 </span>            : </a>
+<a name="37"><span class="lineNum">      37 </span><span class="lineCov">        252 : void define_list(char *argv[], int argc, struct list* list_find, int* j, int* index, option* op) {</span></a>
+<a name="38"><span class="lineNum">      38 </span><span class="lineCov">        252 :     int flag = 0;</span></a>
+<a name="39"><span class="lineNum">      39 </span><span class="lineCov">       1282 :     for (int i = 1; i &lt; argc; i++) {</span></a>
+<a name="40"><span class="lineNum">      40 </span><span class="lineCov">       1030 :         size_t is_e_or_f = 0;</span></a>
+<a name="41"><span class="lineNum">      41 </span><span class="lineCov">       1030 :         define_struct(argv[i], op, &amp;is_e_or_f);</span></a>
+<a name="42"><span class="lineNum">      42 </span><span class="lineCov">       1030 :         if (is_e_or_f &gt; 0) {</span></a>
+<a name="43"><span class="lineNum">      43 </span><span class="lineCov">        133 :             if (strlen(argv[i]) == is_e_or_f) {</span></a>
+<a name="44"><span class="lineNum">      44 </span><span class="lineCov">        124 :                 if (argv[i][is_e_or_f - 1] == 'e') {</span></a>
+<a name="45"><span class="lineNum">      45 </span><span class="lineCov">         88 :                     list_find = add(list_find, argv[i + 1], 0);</span></a>
+<a name="46"><span class="lineNum">      46 </span>            :                 } else {</a>
+<a name="47"><span class="lineNum">      47 </span><span class="lineCov">         36 :                     reg_from_file(list_find, argv[i + 1]);</span></a>
+<a name="48"><span class="lineNum">      48 </span>            :                 }</a>
+<a name="49"><span class="lineNum">      49 </span><span class="lineCov">        124 :                 i++;</span></a>
+<a name="50"><span class="lineNum">      50 </span>            :             } else {</a>
+<a name="51"><span class="lineNum">      51 </span><span class="lineCov">          9 :                 if (argv[i][is_e_or_f - 1] == 'e') {</span></a>
+<a name="52"><span class="lineNum">      52 </span><span class="lineNoCov">          0 :                     list_find = add(list_find, argv[i] + is_e_or_f, 0);</span></a>
+<a name="53"><span class="lineNum">      53 </span>            :                 } else {</a>
+<a name="54"><span class="lineNum">      54 </span><span class="lineCov">          9 :                     reg_from_file(list_find, argv[i] + is_e_or_f);</span></a>
+<a name="55"><span class="lineNum">      55 </span>            :                 }</a>
+<a name="56"><span class="lineNum">      56 </span>            :             }</a>
+<a name="57"><span class="lineNum">      57 </span><span class="lineCov">        897 :         } else if (argv[i][0] != '-') {</span></a>
+<a name="58"><span class="lineNum">      58 </span><span class="lineCov">        533 :             if (flag == 0 &amp;&amp; (list_find)-&gt;find == NULL &amp;&amp; find_e_or_f(argv, argc) == 0) {</span></a>
+<a name="59"><span class="lineNum">      59 </span><span class="lineCov">        160 :                 list_find = add(list_find, argv[i], 0);</span></a>
+<a name="60"><span class="lineNum">      60 </span><span class="lineCov">        160 :                 flag = 1;</span></a>
+<a name="61"><span class="lineNum">      61 </span>            :             } else {</a>
+<a name="62"><span class="lineNum">      62 </span><span class="lineCov">        373 :                 index[*j] = i;</span></a>
+<a name="63"><span class="lineNum">      63 </span><span class="lineCov">        373 :                 (*j)++;</span></a>
+<a name="64"><span class="lineNum">      64 </span>            :             }</a>
+<a name="65"><span class="lineNum">      65 </span>            :         }</a>
+<a name="66"><span class="lineNum">      66 </span>            :     }</a>
+<a name="67"><span class="lineNum">      67 </span><span class="lineCov">        252 : }</span></a>
+<a name="68"><span class="lineNum">      68 </span>            : </a>
+<a name="69"><span class="lineNum">      69 </span><span class="lineCov">      21784 : void check_printf_op_v(struct list* start, char** buffer, option op) {</span></a>
+<a name="70"><span class="lineNum">      70 </span><span class="lineCov">      21784 :     struct list* list_find = start;</span></a>
+<a name="71"><span class="lineNum">      71 </span>            :     do {</a>
+<a name="72"><span class="lineNum">      72 </span><span class="lineCov">      30340 :         find(buffer, list_find-&gt;find, op);</span></a>
+<a name="73"><span class="lineNum">      73 </span><span class="lineCov">      30340 :         if (strcmp(*buffer, &quot;\0&quot;) == 0) {</span></a>
+<a name="74"><span class="lineNum">      74 </span><span class="lineCov">       1729 :             break;</span></a>
+<a name="75"><span class="lineNum">      75 </span>            :         }</a>
+<a name="76"><span class="lineNum">      76 </span><span class="lineCov">      28611 :         list_find = list_find-&gt;ptr;</span></a>
+<a name="77"><span class="lineNum">      77 </span><span class="lineCov">      28611 :     } while (list_find != NULL);</span></a>
+<a name="78"><span class="lineNum">      78 </span><span class="lineCov">      21784 : }</span></a>
+<a name="79"><span class="lineNum">      79 </span>            : </a>
+<a name="80"><span class="lineNum">      80 </span><span class="lineCov">        366 : void check_line_in_file(FILE* fd_in, struct list* start_list_find, option op,</span></a>
+<a name="81"><span class="lineNum">      81 </span>            :                         int count_file_flag, char *argv[], int i, int* count_match, int* index) {</a>
+<a name="82"><span class="lineNum">      82 </span><span class="lineCov">        366 :     char *buffer = NULL;</span></a>
+<a name="83"><span class="lineNum">      83 </span><span class="lineCov">        366 :     size_t len = 0;</span></a>
+<a name="84"><span class="lineNum">      84 </span><span class="lineCov">        366 :     int count_read = 1, count_line = 0;</span></a>
+<a name="85"><span class="lineNum">      85 </span><span class="lineCov">     106158 :     while (!feof(fd_in) &amp;&amp; count_read &gt; 0) {</span></a>
+<a name="86"><span class="lineNum">      86 </span><span class="lineCov">     105792 :         count_line++;</span></a>
+<a name="87"><span class="lineNum">      87 </span><span class="lineCov">     105792 :         count_read = getline(&amp;buffer, &amp;len, fd_in);</span></a>
+<a name="88"><span class="lineNum">      88 </span><span class="lineCov">     105792 :         struct list* temp = start_list_find-&gt;ptr;</span></a>
+<a name="89"><span class="lineNum">      89 </span><span class="lineCov">     105792 :         int flag_dublicate = 0;</span></a>
+<a name="90"><span class="lineNum">      90 </span>            : </a>
+<a name="91"><span class="lineNum">      91 </span><span class="lineCov">     105792 :         if (count_read != -1 &amp;&amp; strlen(buffer) &gt; 0 &amp;&amp; buffer[strlen(buffer) - 1] != '\n') {</span></a>
+<a name="92"><span class="lineNum">      92 </span><span class="lineNoCov">          0 :             len += 2;</span></a>
+<a name="93"><span class="lineNum">      93 </span><span class="lineNoCov">          0 :             char* buffer_temp = realloc(buffer, len * sizeof(char));</span></a>
+<a name="94"><span class="lineNum">      94 </span><span class="lineNoCov">          0 :             if (buffer_temp == NULL) {</span></a>
+<a name="95"><span class="lineNum">      95 </span><span class="lineNoCov">          0 :                 free(buffer);</span></a>
+<a name="96"><span class="lineNum">      96 </span>            :             } else {</a>
+<a name="97"><span class="lineNum">      97 </span><span class="lineNoCov">          0 :                 buffer = buffer_temp;</span></a>
+<a name="98"><span class="lineNum">      98 </span>            :             }</a>
+<a name="99"><span class="lineNum">      99 </span><span class="lineNoCov">          0 :             strcat(buffer, &quot;\n&quot;);</span></a>
+<a name="100"><span class="lineNum">     100 </span>            :         }</a>
+<a name="101"><span class="lineNum">     101 </span><span class="lineCov">     105792 :         char* buf_buffer = (char*) malloc(sizeof(char) * (strlen(buffer) + 1));</span></a>
+<a name="102"><span class="lineNum">     102 </span><span class="lineCov">     105792 :         strcpy(buf_buffer, buffer);</span></a>
+<a name="103"><span class="lineNum">     103 </span>            : </a>
+<a name="104"><span class="lineNum">     104 </span><span class="lineCov">     105792 :         if (op.v == 1)</span></a>
+<a name="105"><span class="lineNum">     105 </span><span class="lineCov">      21784 :             check_printf_op_v(temp, &amp;buffer, op);</span></a>
+<a name="106"><span class="lineNum">     106 </span>            : </a>
+<a name="107"><span class="lineNum">     107 </span><span class="lineCov">     255324 :         while (temp != NULL &amp;&amp; strcmp(buffer, &quot;\0&quot;) != 0) {</span></a>
+<a name="108"><span class="lineNum">     108 </span><span class="lineCov">     166899 :             if (count_read != -1) check_struct(op, &amp;buffer, temp, &amp;len);</span></a>
+<a name="109"><span class="lineNum">     109 </span>            : </a>
+<a name="110"><span class="lineNum">     110 </span><span class="lineCov">     166899 :             if (op.n == 1 &amp;&amp; strlen(buffer) &gt; 0) {</span></a>
+<a name="111"><span class="lineNum">     111 </span>            :                 char number[1000];</a>
+<a name="112"><span class="lineNum">     112 </span><span class="lineCov">       1684 :                 sprintf(number, &quot;%d&quot;, count_line);</span></a>
+<a name="113"><span class="lineNum">     113 </span><span class="lineCov">       1684 :                 add_name_file(&amp;buffer, number, &amp;len);</span></a>
+<a name="114"><span class="lineNum">     114 </span>            :             }</a>
+<a name="115"><span class="lineNum">     115 </span>            : </a>
+<a name="116"><span class="lineNum">     116 </span><span class="lineCov">     166899 :             if (op.h != 1 &amp;&amp; count_file_flag != 0 &amp;&amp; strlen(buffer) &gt; 0)</span></a>
+<a name="117"><span class="lineNum">     117 </span><span class="lineCov">      11738 :                 add_name_file(&amp;buffer, argv[index[i]], &amp;len);</span></a>
+<a name="118"><span class="lineNum">     118 </span>            : </a>
+<a name="119"><span class="lineNum">     119 </span><span class="lineCov">     166899 :             if (strlen(buffer) &gt; 0 &amp;&amp; (op.c == 1 || op.l == 1) &amp;&amp; flag_dublicate == 0) {</span></a>
+<a name="120"><span class="lineNum">     120 </span><span class="lineCov">       6788 :                 (*count_match)++;</span></a>
+<a name="121"><span class="lineNum">     121 </span><span class="lineCov">       6788 :                 flag_dublicate = 1;</span></a>
+<a name="122"><span class="lineNum">     122 </span><span class="lineCov">     160111 :             } else if (strlen(buffer) &gt; 0 &amp;&amp; flag_dublicate == 0) {</span></a>
+<a name="123"><span class="lineNum">     123 </span><span class="lineCov">      17367 :                 printf(&quot;%s&quot;, buffer);</span></a>
+<a name="124"><span class="lineNum">     124 </span><span class="lineCov">      17367 :                 flag_dublicate = 1;</span></a>
+<a name="125"><span class="lineNum">     125 </span><span class="lineCov">      17367 :                 break;</span></a>
+<a name="126"><span class="lineNum">     126 </span>            :             }</a>
+<a name="127"><span class="lineNum">     127 </span><span class="lineCov">     149532 :             temp = temp-&gt;ptr;</span></a>
+<a name="128"><span class="lineNum">     128 </span><span class="lineCov">     149532 :             len = strlen(buf_buffer) + 1;</span></a>
+<a name="129"><span class="lineNum">     129 </span><span class="lineCov">     149532 :             buffer = realloc(buffer, len * sizeof(char));</span></a>
+<a name="130"><span class="lineNum">     130 </span><span class="lineCov">     149532 :             strcpy(buffer, buf_buffer);</span></a>
+<a name="131"><span class="lineNum">     131 </span>            :         }</a>
+<a name="132"><span class="lineNum">     132 </span><span class="lineCov">     105792 :         free(buf_buffer);</span></a>
+<a name="133"><span class="lineNum">     133 </span>            :     }</a>
+<a name="134"><span class="lineNum">     134 </span><span class="lineCov">        366 :     free(buffer);</span></a>
+<a name="135"><span class="lineNum">     135 </span><span class="lineCov">        366 : }</span></a>
+<a name="136"><span class="lineNum">     136 </span>            : </a>
+<a name="137"><span class="lineNum">     137 </span><span class="lineCov">        252 : int main(int argc, char *argv[]) {</span></a>
+<a name="138"><span class="lineNum">     138 </span><span class="lineCov">        252 :     option op = {0};</span></a>
+<a name="139"><span class="lineNum">     139 </span><span class="lineCov">        252 :     struct list* list_find = init(NULL);</span></a>
+<a name="140"><span class="lineNum">     140 </span><span class="lineCov">        252 :     struct list* start_list_find = list_find;</span></a>
+<a name="141"><span class="lineNum">     141 </span><span class="lineCov">        252 :     int count_file_flag = 0, index[argc], j = 0;</span></a>
+<a name="142"><span class="lineNum">     142 </span>            : </a>
+<a name="143"><span class="lineNum">     143 </span><span class="lineCov">        252 :     define_list(argv, argc, list_find, &amp;j, index, &amp;op);</span></a>
+<a name="144"><span class="lineNum">     144 </span>            : </a>
+<a name="145"><span class="lineNum">     145 </span><span class="lineCov">        625 :     for (int i = 0; i &lt; j; i++) {</span></a>
+<a name="146"><span class="lineNum">     146 </span>            :         FILE* fd_in;</a>
+<a name="147"><span class="lineNum">     147 </span>            : </a>
+<a name="148"><span class="lineNum">     148 </span><span class="lineCov">        373 :         if (j &gt; 1) count_file_flag++;</span></a>
+<a name="149"><span class="lineNum">     149 </span><span class="lineCov">        373 :         fd_in = fopen(argv[index[i]], &quot;r&quot;);</span></a>
+<a name="150"><span class="lineNum">     150 </span><span class="lineCov">        373 :         if (fd_in) {</span></a>
+<a name="151"><span class="lineNum">     151 </span><span class="lineCov">        366 :             int count_match = 0;</span></a>
+<a name="152"><span class="lineNum">     152 </span>            : </a>
+<a name="153"><span class="lineNum">     153 </span><span class="lineCov">        366 :             check_line_in_file(fd_in, start_list_find, op,</span></a>
+<a name="154"><span class="lineNum">     154 </span>            :                                 count_file_flag, argv, i, &amp;count_match, index);</a>
+<a name="155"><span class="lineNum">     155 </span>            : </a>
+<a name="156"><span class="lineNum">     156 </span><span class="lineCov">        366 :             if (op.c == 1)</span></a>
+<a name="157"><span class="lineNum">     157 </span><span class="lineCov">         63 :                 op_c(count_file_flag, argv[index[i]], count_match, op.l, op.h);</span></a>
+<a name="158"><span class="lineNum">     158 </span>            : </a>
+<a name="159"><span class="lineNum">     159 </span><span class="lineCov">        366 :             if (op.l == 1 &amp;&amp; count_match &gt; 0)</span></a>
+<a name="160"><span class="lineNum">     160 </span><span class="lineCov">         42 :                 printf(&quot;%s\n&quot;, argv[index[i]]);</span></a>
+<a name="161"><span class="lineNum">     161 </span>            : </a>
+<a name="162"><span class="lineNum">     162 </span><span class="lineCov">        366 :             fclose(fd_in);</span></a>
+<a name="163"><span class="lineNum">     163 </span><span class="lineCov">          7 :         } else if (op.s != 1) {</span></a>
+<a name="164"><span class="lineNum">     164 </span><span class="lineCov">          7 :             fprintf(stderr, &quot;grep: %s: No such file or directory\n&quot;, argv[index[i]]);</span></a>
+<a name="165"><span class="lineNum">     165 </span>            :         }</a>
+<a name="166"><span class="lineNum">     166 </span>            :     }</a>
+<a name="167"><span class="lineNum">     167 </span>            : </a>
+<a name="168"><span class="lineNum">     168 </span><span class="lineCov">        252 :     delete_list(start_list_find);</span></a>
+<a name="169"><span class="lineNum">     169 </span>            : </a>
+<a name="170"><span class="lineNum">     170 </span><span class="lineCov">        252 :     return 0;</span></a>
+<a name="171"><span class="lineNum">     171 </span>            : }</a>
+<a name="172"><span class="lineNum">     172 </span>            : </a>
+<a name="173"><span class="lineNum">     173 </span><span class="lineCov">        252 : struct list* init(char* find) {</span></a>
+<a name="174"><span class="lineNum">     174 </span>            :     struct list* temp;</a>
+<a name="175"><span class="lineNum">     175 </span><span class="lineCov">        252 :     temp = (struct list*)malloc(sizeof(struct list));</span></a>
+<a name="176"><span class="lineNum">     176 </span><span class="lineCov">        252 :     temp-&gt;find = find;</span></a>
+<a name="177"><span class="lineNum">     177 </span><span class="lineCov">        252 :     temp-&gt;ptr = NULL;</span></a>
+<a name="178"><span class="lineNum">     178 </span><span class="lineCov">        252 :     return(temp);</span></a>
+<a name="179"><span class="lineNum">     179 </span>            : }</a>
+<a name="180"><span class="lineNum">     180 </span>            : </a>
+<a name="181"><span class="lineNum">     181 </span><span class="lineCov">        428 : struct list* add(struct list* lst, char* find, int flag) {</span></a>
+<a name="182"><span class="lineNum">     182 </span>            :     struct list *temp, *p;</a>
+<a name="183"><span class="lineNum">     183 </span><span class="lineCov">        428 :     temp = malloc(sizeof(struct list));</span></a>
+<a name="184"><span class="lineNum">     184 </span><span class="lineCov">        428 :     p = lst-&gt;ptr;;</span></a>
+<a name="185"><span class="lineNum">     185 </span><span class="lineCov">        428 :     lst-&gt;ptr = temp;</span></a>
+<a name="186"><span class="lineNum">     186 </span><span class="lineCov">        428 :     if (flag == 1) {</span></a>
+<a name="187"><span class="lineNum">     187 </span><span class="lineCov">        180 :         temp-&gt;find = malloc(sizeof(char) * (strlen(find) + 1));</span></a>
+<a name="188"><span class="lineNum">     188 </span><span class="lineCov">        180 :         strcpy(temp-&gt;find, find);</span></a>
+<a name="189"><span class="lineNum">     189 </span>            :     } else {</a>
+<a name="190"><span class="lineNum">     190 </span><span class="lineCov">        248 :         temp-&gt;find = find;</span></a>
+<a name="191"><span class="lineNum">     191 </span>            :     }</a>
+<a name="192"><span class="lineNum">     192 </span><span class="lineCov">        428 :     temp-&gt;file = flag;</span></a>
+<a name="193"><span class="lineNum">     193 </span><span class="lineCov">        428 :     temp-&gt;ptr = p;</span></a>
+<a name="194"><span class="lineNum">     194 </span><span class="lineCov">        428 :     return(temp);</span></a>
+<a name="195"><span class="lineNum">     195 </span>            : }</a>
+<a name="196"><span class="lineNum">     196 </span>            : </a>
+<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        252 : void delete_list(struct list* start) {</span></a>
+<a name="198"><span class="lineNum">     198 </span><span class="lineCov">        932 :     while (start != NULL) {</span></a>
+<a name="199"><span class="lineNum">     199 </span><span class="lineCov">        680 :         struct list* temp = start-&gt;ptr;</span></a>
+<a name="200"><span class="lineNum">     200 </span><span class="lineCov">        680 :         if (start-&gt;file == 1) {</span></a>
+<a name="201"><span class="lineNum">     201 </span><span class="lineCov">        180 :             free(start-&gt;find);</span></a>
+<a name="202"><span class="lineNum">     202 </span>            :         }</a>
+<a name="203"><span class="lineNum">     203 </span><span class="lineCov">        680 :         free(start);</span></a>
+<a name="204"><span class="lineNum">     204 </span><span class="lineCov">        680 :         start = temp;</span></a>
+<a name="205"><span class="lineNum">     205 </span>            :     }</a>
+<a name="206"><span class="lineNum">     206 </span><span class="lineCov">        252 : }</span></a>
+<a name="207"><span class="lineNum">     207 </span>            : </a>
+<a name="208"><span class="lineNum">     208 </span><span class="lineCov">       1030 : void define_struct(char* flag, option* op, size_t* count) {</span></a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">       1030 :     if (flag[0] == '-') {</span></a>
+<a name="210"><span class="lineNum">     210 </span><span class="lineCov">        861 :         for (size_t i = 1; i &lt; strlen(flag); i++) {</span></a>
+<a name="211"><span class="lineNum">     211 </span><span class="lineCov">        497 :             if (flag[i] == 'e' || flag[i] == 'f') {</span></a>
+<a name="212"><span class="lineNum">     212 </span><span class="lineCov">        133 :                 *count = i + 1;</span></a>
+<a name="213"><span class="lineNum">     213 </span><span class="lineCov">        133 :                 break;</span></a>
+<a name="214"><span class="lineNum">     214 </span><span class="lineCov">        364 :             } else if (flag[i] == 'i') {</span></a>
+<a name="215"><span class="lineNum">     215 </span><span class="lineCov">         57 :                 op-&gt;i = 1;</span></a>
+<a name="216"><span class="lineNum">     216 </span><span class="lineCov">        307 :             } else if (flag[i] == 'v') {</span></a>
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">         51 :                 op-&gt;v = 1;</span></a>
+<a name="218"><span class="lineNum">     218 </span><span class="lineCov">        256 :             } else if (flag[i] == 'c') {</span></a>
+<a name="219"><span class="lineNum">     219 </span><span class="lineCov">         44 :                 op-&gt;c = 1;</span></a>
+<a name="220"><span class="lineNum">     220 </span><span class="lineCov">        212 :             } else if (flag[i] == 'l') {</span></a>
+<a name="221"><span class="lineNum">     221 </span><span class="lineCov">         45 :                 op-&gt;l = 1;</span></a>
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">        167 :             } else if (flag[i] == 'n') {</span></a>
+<a name="223"><span class="lineNum">     223 </span><span class="lineCov">         42 :                 op-&gt;n = 1;</span></a>
+<a name="224"><span class="lineNum">     224 </span><span class="lineCov">        125 :             } else if (flag[i] == 'h') {</span></a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">         51 :                 op-&gt;h = 1;</span></a>
+<a name="226"><span class="lineNum">     226 </span><span class="lineCov">         74 :             } else if (flag[i] == 's') {</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">         42 :                 op-&gt;s = 1;</span></a>
+<a name="228"><span class="lineNum">     228 </span><span class="lineCov">         32 :             } else if (flag[i] == 'o') {</span></a>
+<a name="229"><span class="lineNum">     229 </span><span class="lineCov">         32 :                 op-&gt;o = 1;</span></a>
+<a name="230"><span class="lineNum">     230 </span>            :             } else {</a>
+<a name="231"><span class="lineNum">     231 </span><span class="lineNoCov">          0 :                 fprintf(stderr, &quot;grep: unknown --directories option\n&quot;);</span></a>
+<a name="232"><span class="lineNum">     232 </span><span class="lineNoCov">          0 :                 exit(1);</span></a>
+<a name="233"><span class="lineNum">     233 </span>            :             }</a>
+<a name="234"><span class="lineNum">     234 </span>            :         }</a>
+<a name="235"><span class="lineNum">     235 </span>            :     }</a>
+<a name="236"><span class="lineNum">     236 </span><span class="lineCov">       1030 : }</span></a>
+<a name="237"><span class="lineNum">     237 </span>            : </a>
+<a name="238"><span class="lineNum">     238 </span><span class="lineCov">         63 : void op_c(int count_file_flag, char* name, int count_match, int l, int h) {</span></a>
+<a name="239"><span class="lineNum">     239 </span><span class="lineCov">         63 :     if (count_file_flag != 0 &amp;&amp; h != 1) {</span></a>
+<a name="240"><span class="lineNum">     240 </span><span class="lineCov">         32 :         printf(&quot;%s:&quot;, name);</span></a>
+<a name="241"><span class="lineNum">     241 </span>            :     }</a>
+<a name="242"><span class="lineNum">     242 </span><span class="lineCov">         63 :     if (l == 1 &amp;&amp; count_match &gt; 0) {</span></a>
+<a name="243"><span class="lineNum">     243 </span><span class="lineNoCov">          0 :         count_match = 1;</span></a>
+<a name="244"><span class="lineNum">     244 </span>            :     }</a>
+<a name="245"><span class="lineNum">     245 </span><span class="lineCov">         63 :     printf(&quot;%d\n&quot;, count_match);</span></a>
+<a name="246"><span class="lineNum">     246 </span><span class="lineCov">         63 : }</span></a>
+<a name="247"><span class="lineNum">     247 </span>            : </a>
+<a name="248"><span class="lineNum">     248 </span><span class="lineCov">     171409 : void find(char** buffer, char* find, option op) {</span></a>
+<a name="249"><span class="lineNum">     249 </span><span class="lineCov">     171409 :     if (strcmp(find, &quot;.&quot;) == 0 &amp;&amp; strcmp(*buffer, &quot;\n&quot;) == 0 &amp;&amp; op.v != 1) {</span></a>
+<a name="250"><span class="lineNum">     250 </span><span class="lineCov">        202 :         strcpy(*buffer, &quot;\0&quot;);</span></a>
+<a name="251"><span class="lineNum">     251 </span>            :     }</a>
+<a name="252"><span class="lineNum">     252 </span>            : </a>
+<a name="253"><span class="lineNum">     253 </span><span class="lineCov">     171409 :     if (strcmp(find, &quot;\\n&quot;) == 0) {</span></a>
+<a name="254"><span class="lineNum">     254 </span><span class="lineNoCov">          0 :         strcpy(*buffer, &quot;\0&quot;);</span></a>
+<a name="255"><span class="lineNum">     255 </span>            :     }</a>
+<a name="256"><span class="lineNum">     256 </span>            : </a>
+<a name="257"><span class="lineNum">     257 </span>            :     regex_t reg;</a>
+<a name="258"><span class="lineNum">     258 </span><span class="lineCov">     171409 :     int status = (op.i == 1) ? regcomp(&amp;reg, find, REG_ICASE) : regcomp(&amp;reg, find, 0);</span></a>
+<a name="259"><span class="lineNum">     259 </span><span class="lineCov">     171409 :     if (!status) {</span></a>
+<a name="260"><span class="lineNum">     260 </span><span class="lineCov">     171409 :         int status_find = regexec(&amp;reg, *buffer, 0, NULL, 0);</span></a>
+<a name="261"><span class="lineNum">     261 </span><span class="lineCov">     171409 :         if (strcmp(*buffer, &quot;\n&quot;) == 0 &amp;&amp; strcmp(find, &quot;.&quot;) == 0) {;</span></a>
+<a name="262"><span class="lineNum">     262 </span><span class="lineCov">     171207 :         } else if ((status_find == REG_NOMATCH &amp;&amp; op.v == 0) || (!status_find &amp;&amp; op.v == 1)) {</span></a>
+<a name="263"><span class="lineNum">     263 </span><span class="lineCov">     120335 :             strcpy(*buffer, &quot;\0&quot;);</span></a>
+<a name="264"><span class="lineNum">     264 </span>            :         }</a>
+<a name="265"><span class="lineNum">     265 </span>            :     }</a>
+<a name="266"><span class="lineNum">     266 </span><span class="lineCov">     171409 :     regfree(&amp;reg);</span></a>
+<a name="267"><span class="lineNum">     267 </span><span class="lineCov">     171409 : }</span></a>
+<a name="268"><span class="lineNum">     268 </span>            : </a>
+<a name="269"><span class="lineNum">     269 </span>            : </a>
+<a name="270"><span class="lineNum">     270 </span><span class="lineCov">       1253 : void patert_in_patern(char* buffer, char* search, option op, char** result, size_t* len) {</span></a>
+<a name="271"><span class="lineNum">     271 </span><span class="lineCov">       1253 :     regmatch_t math = {0};</span></a>
+<a name="272"><span class="lineNum">     272 </span>            :     regex_t reg;</a>
+<a name="273"><span class="lineNum">     273 </span>            : </a>
+<a name="274"><span class="lineNum">     274 </span><span class="lineCov">       1253 :     int status = (op.i == 1) ? regcomp(&amp;reg, search, REG_ICASE) : regcomp(&amp;reg, search, 0);</span></a>
+<a name="275"><span class="lineNum">     275 </span><span class="lineCov">       1253 :     if (!status) {</span></a>
+<a name="276"><span class="lineNum">     276 </span><span class="lineCov">       1253 :         int status_find = 0;</span></a>
+<a name="277"><span class="lineNum">     277 </span><span class="lineCov">       1253 :         size_t i = 0;</span></a>
+<a name="278"><span class="lineNum">     278 </span><span class="lineCov">       2506 :         while (!status_find &amp;&amp; i &lt; strlen(buffer)) {</span></a>
+<a name="279"><span class="lineNum">     279 </span><span class="lineCov">       1253 :             status_find = regexec(&amp;reg, buffer + i, 1, &amp;math, 0);</span></a>
+<a name="280"><span class="lineNum">     280 </span><span class="lineCov">       1253 :             if (!status_find) {</span></a>
+<a name="281"><span class="lineNum">     281 </span><span class="lineCov">        625 :                 *result = realloc(*result, (*len + strlen(buffer) + 2) * sizeof(char));</span></a>
+<a name="282"><span class="lineNum">     282 </span><span class="lineCov">       2500 :                 for (int j = math.rm_so; j &lt; math.rm_eo; j++) {</span></a>
+<a name="283"><span class="lineNum">     283 </span><span class="lineCov">       1875 :                     (*result)[*len] = *(buffer + i + j);</span></a>
+<a name="284"><span class="lineNum">     284 </span><span class="lineCov">       1875 :                     *len += 1;</span></a>
+<a name="285"><span class="lineNum">     285 </span>            :                 }</a>
+<a name="286"><span class="lineNum">     286 </span><span class="lineCov">        625 :                 (*result)[*len] = '\n';</span></a>
+<a name="287"><span class="lineNum">     287 </span><span class="lineCov">        625 :                 *len += 1;</span></a>
+<a name="288"><span class="lineNum">     288 </span><span class="lineCov">        625 :                 i += math.rm_eo;</span></a>
+<a name="289"><span class="lineNum">     289 </span>            :             }</a>
+<a name="290"><span class="lineNum">     290 </span>            :         }</a>
+<a name="291"><span class="lineNum">     291 </span>            :     }</a>
+<a name="292"><span class="lineNum">     292 </span>            : </a>
+<a name="293"><span class="lineNum">     293 </span><span class="lineCov">       1253 :     regfree(&amp;reg);</span></a>
+<a name="294"><span class="lineNum">     294 </span><span class="lineCov">       1253 : }</span></a>
+<a name="295"><span class="lineNum">     295 </span>            : </a>
+<a name="296"><span class="lineNum">     296 </span><span class="lineCov">      25282 : void find_o(char** buffer, struct list* temp_list, option op, char** result, size_t* len) {</span></a>
+<a name="297"><span class="lineNum">     297 </span><span class="lineCov">      25282 :     regmatch_t math = {0};</span></a>
+<a name="298"><span class="lineNum">     298 </span>            :     regex_t reg;</a>
+<a name="299"><span class="lineNum">     299 </span>            : </a>
+<a name="300"><span class="lineNum">     300 </span><span class="lineCov">      25282 :     int status = (op.i == 1) ? regcomp(&amp;reg, temp_list-&gt;find, REG_ICASE) : regcomp(&amp;reg, temp_list-&gt;find, 0);</span></a>
+<a name="301"><span class="lineNum">     301 </span><span class="lineCov">      25282 :     if (!status) {</span></a>
+<a name="302"><span class="lineNum">     302 </span><span class="lineCov">      25282 :         int status_find = 0, flag = 0;</span></a>
+<a name="303"><span class="lineNum">     303 </span><span class="lineCov">      25282 :         size_t i = 0;</span></a>
+<a name="304"><span class="lineNum">     304 </span><span class="lineCov">      52030 :         while (!status_find &amp;&amp; i &lt; strlen(*buffer)) {</span></a>
+<a name="305"><span class="lineNum">     305 </span><span class="lineCov">      26748 :             status_find = regexec(&amp;reg, *buffer + i, 1, &amp;math, 0);</span></a>
+<a name="306"><span class="lineNum">     306 </span><span class="lineCov">      26748 :             if (!status_find) {</span></a>
+<a name="307"><span class="lineNum">     307 </span><span class="lineCov">       1466 :                 *result = realloc(*result, (*len + strlen(*buffer) + 2) * sizeof(char));</span></a>
+<a name="308"><span class="lineNum">     308 </span><span class="lineCov">       5383 :                 for (int j = math.rm_so; j &lt; math.rm_eo; j++) {</span></a>
+<a name="309"><span class="lineNum">     309 </span><span class="lineCov">       3917 :                     (*result)[*len] = *(*buffer + i + j);</span></a>
+<a name="310"><span class="lineNum">     310 </span><span class="lineCov">       3917 :                     *len += 1;</span></a>
+<a name="311"><span class="lineNum">     311 </span>            :                 }</a>
+<a name="312"><span class="lineNum">     312 </span><span class="lineCov">       1466 :                 (*result)[*len] = '\n';</span></a>
+<a name="313"><span class="lineNum">     313 </span><span class="lineCov">       1466 :                 *len += 1;</span></a>
+<a name="314"><span class="lineNum">     314 </span><span class="lineCov">       1466 :                 i += math.rm_eo;</span></a>
+<a name="315"><span class="lineNum">     315 </span><span class="lineCov">       1466 :                 flag = 1;</span></a>
+<a name="316"><span class="lineNum">     316 </span>            : </a>
+<a name="317"><span class="lineNum">     317 </span><span class="lineCov">       1466 :                 struct list* start = temp_list-&gt;ptr;</span></a>
+<a name="318"><span class="lineNum">     318 </span><span class="lineCov">       2719 :                 while (start != NULL) {</span></a>
+<a name="319"><span class="lineNum">     319 </span><span class="lineCov">       1253 :                     patert_in_patern(temp_list-&gt;find, start-&gt;find, op, result, len);</span></a>
+<a name="320"><span class="lineNum">     320 </span><span class="lineCov">       1253 :                     start = start-&gt;ptr;</span></a>
+<a name="321"><span class="lineNum">     321 </span>            :                 }</a>
+<a name="322"><span class="lineNum">     322 </span><span class="lineCov">      25282 :             } else if (flag == 1) {</span></a>
+<a name="323"><span class="lineNum">     323 </span><span class="lineCov">       1094 :                 temp_list = temp_list-&gt;ptr;</span></a>
+<a name="324"><span class="lineNum">     324 </span><span class="lineCov">       1094 :                 *buffer = *buffer + i;</span></a>
+<a name="325"><span class="lineNum">     325 </span><span class="lineCov">       2094 :                 while (temp_list != NULL) {</span></a>
+<a name="326"><span class="lineNum">     326 </span><span class="lineCov">       1000 :                     (*result)[*len] = '\0';</span></a>
+<a name="327"><span class="lineNum">     327 </span><span class="lineCov">       1000 :                     size_t len_res = strlen(*result);</span></a>
+<a name="328"><span class="lineNum">     328 </span><span class="lineCov">       1000 :                     find_o(buffer, temp_list, op, result, len);</span></a>
+<a name="329"><span class="lineNum">     329 </span><span class="lineCov">       1000 :                     (*result)[*len] = '\0';</span></a>
+<a name="330"><span class="lineNum">     330 </span><span class="lineCov">       1000 :                     *buffer = *buffer + (strlen(*result) - len_res);</span></a>
+<a name="331"><span class="lineNum">     331 </span><span class="lineCov">       1000 :                     temp_list = temp_list-&gt;ptr;</span></a>
+<a name="332"><span class="lineNum">     332 </span>            :                 }</a>
+<a name="333"><span class="lineNum">     333 </span>            :             }</a>
+<a name="334"><span class="lineNum">     334 </span>            :         }</a>
+<a name="335"><span class="lineNum">     335 </span>            :     }</a>
+<a name="336"><span class="lineNum">     336 </span>            : </a>
+<a name="337"><span class="lineNum">     337 </span><span class="lineCov">      25282 :     regfree(&amp;reg);</span></a>
+<a name="338"><span class="lineNum">     338 </span><span class="lineCov">      25282 : }</span></a>
+<a name="339"><span class="lineNum">     339 </span>            : </a>
+<a name="340"><span class="lineNum">     340 </span><span class="lineCov">      24282 : int count_in_list_n(struct list* temp_list) {</span></a>
+<a name="341"><span class="lineNum">     341 </span><span class="lineCov">      24282 :     int count = 0;</span></a>
+<a name="342"><span class="lineNum">     342 </span><span class="lineCov">      24282 :     struct list* list = temp_list;</span></a>
+<a name="343"><span class="lineNum">     343 </span><span class="lineCov">      70167 :     while (list != NULL) {</span></a>
+<a name="344"><span class="lineNum">     344 </span><span class="lineCov">      45885 :         if (strcmp(list-&gt;find, &quot;\n&quot;) == 0 || strcmp(list-&gt;find, &quot;.&quot;) == 0) {</span></a>
+<a name="345"><span class="lineNum">     345 </span><span class="lineNoCov">          0 :             count++;</span></a>
+<a name="346"><span class="lineNum">     346 </span><span class="lineNoCov">          0 :             break;</span></a>
+<a name="347"><span class="lineNum">     347 </span>            :         }</a>
+<a name="348"><span class="lineNum">     348 </span><span class="lineCov">      45885 :         list = list-&gt;ptr;</span></a>
+<a name="349"><span class="lineNum">     349 </span>            :     }</a>
+<a name="350"><span class="lineNum">     350 </span><span class="lineCov">      24282 :     return count;</span></a>
+<a name="351"><span class="lineNum">     351 </span>            : }</a>
+<a name="352"><span class="lineNum">     352 </span>            : </a>
+<a name="353"><span class="lineNum">     353 </span><span class="lineCov">     166899 : void check_struct(option op, char** buffer, struct list* temp_list, size_t* len_buf) {</span></a>
+<a name="354"><span class="lineNum">     354 </span><span class="lineCov">     166899 :     int count = 0;</span></a>
+<a name="355"><span class="lineNum">     355 </span><span class="lineCov">     166899 :     if (op.o == 1) {</span></a>
+<a name="356"><span class="lineNum">     356 </span><span class="lineCov">      25830 :         size_t len = 0;</span></a>
+<a name="357"><span class="lineNum">     357 </span>            : </a>
+<a name="358"><span class="lineNum">     358 </span><span class="lineCov">      25830 :         if (op.v == 0 &amp;&amp; count_in_list_n(temp_list) == 0) {</span></a>
+<a name="359"><span class="lineNum">     359 </span><span class="lineCov">      24282 :             char* temp_buff = *buffer;</span></a>
+<a name="360"><span class="lineNum">     360 </span><span class="lineCov">      24282 :             char* result = (char*) malloc(sizeof(char) + 1);</span></a>
+<a name="361"><span class="lineNum">     361 </span><span class="lineCov">      24282 :             find_o(buffer, temp_list, op, &amp;result, &amp;len);</span></a>
+<a name="362"><span class="lineNum">     362 </span><span class="lineCov">      24282 :             result[len] = '\0';</span></a>
+<a name="363"><span class="lineNum">     363 </span>            :             // *buffer = temp_buff;</a>
+<a name="364"><span class="lineNum">     364 </span><span class="lineCov">      24282 :             *len_buf = strlen(result) + 1;</span></a>
+<a name="365"><span class="lineNum">     365 </span><span class="lineCov">      24282 :             *buffer = realloc(temp_buff, (*len_buf) * sizeof(char));</span></a>
+<a name="366"><span class="lineNum">     366 </span><span class="lineCov">      24282 :             strcpy(*buffer, result);</span></a>
+<a name="367"><span class="lineNum">     367 </span><span class="lineCov">      24282 :             free(result);</span></a>
+<a name="368"><span class="lineNum">     368 </span>            :         }</a>
+<a name="369"><span class="lineNum">     369 </span><span class="lineCov">      25830 :         count++;</span></a>
+<a name="370"><span class="lineNum">     370 </span>            :     }</a>
+<a name="371"><span class="lineNum">     371 </span>            : </a>
+<a name="372"><span class="lineNum">     372 </span><span class="lineCov">     166899 :     if (op.v == 1 &amp;&amp; count == 0) {</span></a>
+<a name="373"><span class="lineNum">     373 </span><span class="lineCov">      18507 :         find(buffer, temp_list-&gt;find, op);</span></a>
+<a name="374"><span class="lineNum">     374 </span><span class="lineCov">      18507 :         count++;</span></a>
+<a name="375"><span class="lineNum">     375 </span>            :     }</a>
+<a name="376"><span class="lineNum">     376 </span>            : </a>
+<a name="377"><span class="lineNum">     377 </span><span class="lineCov">     166899 :     if (count == 0) {</span></a>
+<a name="378"><span class="lineNum">     378 </span><span class="lineCov">     122562 :         find(buffer, temp_list-&gt;find, op);</span></a>
+<a name="379"><span class="lineNum">     379 </span>            :     }</a>
+<a name="380"><span class="lineNum">     380 </span><span class="lineCov">     166899 : }</span></a>
+<a name="381"><span class="lineNum">     381 </span>            : </a>
+<a name="382"><span class="lineNum">     382 </span><span class="lineCov">      13422 : void add_name_file(char** buffer, char* name, size_t* len) {</span></a>
+<a name="383"><span class="lineNum">     383 </span><span class="lineCov">      13422 :     char* name_file = (char*) malloc((sizeof(char) * strlen(name) + 2));</span></a>
+<a name="384"><span class="lineNum">     384 </span><span class="lineCov">      13422 :     strcpy(name_file, name);</span></a>
+<a name="385"><span class="lineNum">     385 </span><span class="lineCov">      13422 :     strcat(name_file, &quot;:&quot;);</span></a>
+<a name="386"><span class="lineNum">     386 </span>            : </a>
+<a name="387"><span class="lineNum">     387 </span><span class="lineCov">      13422 :     char* temp_memory = NULL;</span></a>
+<a name="388"><span class="lineNum">     388 </span><span class="lineCov">      13422 :     temp_memory = s21_insert(*buffer, name_file, 0);</span></a>
+<a name="389"><span class="lineNum">     389 </span>            : </a>
+<a name="390"><span class="lineNum">     390 </span><span class="lineCov">      13422 :     *len += strlen(temp_memory);</span></a>
+<a name="391"><span class="lineNum">     391 </span><span class="lineCov">      13422 :     *buffer = realloc(*buffer, *len * sizeof(char));</span></a>
+<a name="392"><span class="lineNum">     392 </span><span class="lineCov">      13422 :     strcpy(*buffer, temp_memory);</span></a>
+<a name="393"><span class="lineNum">     393 </span>            : </a>
+<a name="394"><span class="lineNum">     394 </span><span class="lineCov">      13422 :     free(name_file);</span></a>
+<a name="395"><span class="lineNum">     395 </span><span class="lineCov">      13422 :     free(temp_memory);</span></a>
+<a name="396"><span class="lineNum">     396 </span><span class="lineCov">      13422 : }</span></a>
+<a name="397"><span class="lineNum">     397 </span>            : </a>
+<a name="398"><span class="lineNum">     398 </span><span class="lineCov">      13422 : void *s21_insert(const char *src, const char *str, size_t start_index) {</span></a>
+<a name="399"><span class="lineNum">     399 </span><span class="lineCov">      13422 :     char *buff = NULL;</span></a>
+<a name="400"><span class="lineNum">     400 </span><span class="lineCov">      13422 :     if (src != NULL &amp;&amp; str != NULL &amp;&amp; start_index &lt;= strlen(src)) {</span></a>
+<a name="401"><span class="lineNum">     401 </span><span class="lineCov">      13422 :         buff = (char *) malloc((sizeof(char) * strlen(src) + strlen(str) + 1));</span></a>
+<a name="402"><span class="lineNum">     402 </span><span class="lineCov">      13422 :         if (buff != NULL) {</span></a>
+<a name="403"><span class="lineNum">     403 </span><span class="lineCov">      13422 :             strncpy(buff, src, start_index);</span></a>
+<a name="404"><span class="lineNum">     404 </span><span class="lineCov">      13422 :             strcpy(buff + start_index, str);</span></a>
+<a name="405"><span class="lineNum">     405 </span><span class="lineCov">      13422 :             strcpy(buff + start_index + strlen(str), src + start_index);</span></a>
+<a name="406"><span class="lineNum">     406 </span>            :         }</a>
+<a name="407"><span class="lineNum">     407 </span>            :     }</a>
+<a name="408"><span class="lineNum">     408 </span><span class="lineCov">      13422 :     return buff;</span></a>
+<a name="409"><span class="lineNum">     409 </span>            : }</a>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="https://github.com/linux-test-project/lcov" target="_parent">LCOV version 1.16</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

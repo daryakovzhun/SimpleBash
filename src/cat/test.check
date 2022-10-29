@@ -1,0 +1,146 @@
+#include "s21_cat.h"
+
+#test emty_option
+system("cat s21_cat.h > a");
+system("cat s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test b_option
+system("cat -b s21_cat.h > a");
+system("cat -b s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option
+system("cat -e s21_cat.h > a");
+system("cat -e s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test n_option
+system("cat -n s21_cat.h > a");
+system("cat -n s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test s_option
+system("cat -s s21_cat.h > a");
+system("cat -s s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test t_option
+system("cat -t s21_cat.h > a");
+system("cat -t s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test be_option
+system("cat -be s21_cat.h > a");
+system("cat -be s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bn_option
+system("cat -bn s21_cat.h > a");
+system("cat -bn s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bs_option
+system("cat -bs s21_cat.h > a");
+system("cat -bs s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bt_option
+system("cat -bt s21_cat.h > a");
+system("cat -bt s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test en_option
+system("cat -en s21_cat.h > a");
+system("cat -en s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test es_option
+system("cat -es s21_cat.h > a");
+system("cat -es s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test et_option
+system("cat -et s21_cat.h > a");
+system("cat -et s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ns_option
+system("cat -ns s21_cat.h > a");
+system("cat -ns s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test nt_option
+system("cat -nt s21_cat.h > a");
+system("cat -nt s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sn_option
+system("cat -sn s21_cat.h > a");
+system("cat -sn s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test st_option
+system("cat -st s21_cat.h > a");
+system("cat -st s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ben_option
+system("cat -ben s21_cat.h > a");
+system("cat -ben s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bes_option
+system("cat -bes s21_cat.h > a");
+system("cat -bes s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bet_option
+system("cat -bet s21_cat.h > a");
+system("cat -bet s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bns_option
+system("cat -bns s21_cat.h > a");
+system("cat -bns s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bnt_option
+system("cat -bnt s21_cat.h > a");
+system("cat -bnt s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ens_option
+system("cat -ens s21_cat.h > a");
+system("cat -ens s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ent_option
+system("cat -ent s21_cat.h > a");
+system("cat -ent s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test nst_option
+system("cat -nst s21_cat.h > a");
+system("cat -nst s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bens_option
+system("cat -bens s21_cat.h > a");
+system("cat -bens s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test bent_option
+system("cat -bent s21_cat.h > a");
+system("cat -bent s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test enst_option
+system("cat -enst s21_cat.h > a");
+system("cat -enst s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test benst_option
+system("cat -benst s21_cat.h > a");
+system("cat -benst s21_cat.h > b");
+ck_assert_int_eq(system("diff a b"), 0);

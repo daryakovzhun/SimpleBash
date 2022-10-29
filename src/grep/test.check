@@ -1,0 +1,1357 @@
+#include "s21_grep.h"
+
+#test emty_option
+system("grep include s21_grep.h > a");
+system("./test_grep include s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test e_option1
+system("grep -e include s21_grep.h > a");
+system("./test_grep -e include s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option2
+system("grep -e include -e end s21_grep.h > a");
+system("./test_grep -e include -e end s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option3
+system("grep -e include -e end -e aaa s21_grep.h > a");
+system("./test_grep -e include -e end -e aaa s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option4
+system("grep s21_grep.h -e include > a");
+system("./test_grep s21_grep.h -e include > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option5
+system("grep s21_grep.h -e incl.de -e end > a");
+system("./test_grep s21_grep.h -e incl.de -e end > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option6
+system("grep -e include s21_grep.h s21_grep.c > a");
+system("./test_grep -e include s21_grep.h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option7
+system("grep -e include -e end s21_grep.h s21_grep.c > a");
+system("./test_grep -e include -e end s21_grep.h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option8
+system("grep -e include -e end -e aaa s21_grep.h s21_grep.c > a");
+system("./test_grep -e include -e end -e aaa s21_grep.h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option9
+system("grep s21_grep.h -e include s21_grep.c > a");
+system("./test_grep s21_grep.h -e include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test e_option10
+system("grep s21_grep.h -e incl.de -e end s21_grep.c > a");
+system("./test_grep s21_grep.h -e incl.de -e end s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test i_option1
+system("grep -i include s21_grep.h > a");
+system("./test_grep -i include s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test i_option2
+system("grep -i incLudE s21_grep.h > a");
+system("./test_grep -i incLudE s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test i_option3
+system("grep -i incL.dE s21_grep.h > a");
+system("./test_grep -i incL.dE s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test i_option4
+system("grep -i include s21_grep.h s21_grep.c > a");
+system("./test_grep -i include s21_grep.h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test i_option5
+system("grep -i incLudE s21_grep.h s21_grep.c > a");
+system("./test_grep -i incLudE s21_grep.h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test i_option6
+system("grep -i incL.dE s21_grep.h s21_grep.c > a");
+system("./test_grep -i incL.dE s21_grep.h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test v_option1
+system("grep -v include s21_grep.h > a");
+system("./test_grep -v include s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test v_option2
+system("grep -v inclue s21_grep.h > a");
+system("./test_grep -v inclue s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test v_option3
+system("grep -v int s21_grep.c > a");
+system("./test_grep -v int s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test v_option4
+system("grep -v include s21_grep.h s21_grep.c > a");
+system("./test_grep -v include s21_grep.h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test v_option5
+system("grep -v inclue s21_grep.h s21_grep.c > a");
+system("./test_grep -v inclue s21_grep.h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test v_option6
+system("grep -v int s21_grep.c s21_grep.c > a");
+system("./test_grep -v int s21_grep.c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+#test c_option1
+system("grep -c int s21_grep.c > a");
+system("./test_grep -c int s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test c_option2
+system("grep -c include s21_grep.c > a");
+system("./test_grep -c include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test c_option3
+system("grep -c aaa s21_grep.c > a");
+system("./test_grep -c aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test c_option4
+system("grep -c int s21_grep.c s21_grep.h > a");
+system("./test_grep -c int s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test c_option5
+system("grep -c include s21_grep.c s21_grep.h > a");
+system("./test_grep -c include s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test c_option6
+system("grep -c aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -c aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test n_option1
+system("grep -n aaa s21_grep.c > a");
+system("./test_grep -n aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test n_option2
+system("grep -n include s21_grep.c > a");
+system("./test_grep -n include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test n_option3
+system("grep -n -e include -e end s21_grep.c > a");
+system("./test_grep -n -e include -e end s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test n_option4
+system("grep -n aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -n aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test n_option5
+system("grep -n include s21_grep.c s21_grep.h > a");
+system("./test_grep -n include s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test n_option6
+system("grep -n -e include -e end s21_grep.c s21_grep.h > a");
+system("./test_grep -n -e include -e end s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test l_option1
+system("grep -l aaa s21_grep.c > a");
+system("./test_grep -l aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test l_option2
+system("grep -l include s21_grep.c > a");
+system("./test_grep -l include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test l_option3
+system("grep -l -e include -e end s21_grep.c > a");
+system("./test_grep -l -e include -e end s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test l_option4
+system("grep -l aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -l aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test l_option5
+system("grep -l include s21_grep.c s21_grep.h > a");
+system("./test_grep -l include s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test l_option6
+system("grep -l -e include -e end s21_grep.c s21_grep.h > a");
+system("./test_grep -l -e include -e end s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test ei_option1
+system("grep -i -e incLude -e enD s21_grep.c > a");
+system("./test_grep -i -e incLude -e enD s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ei_option2
+system("grep -i -e incLude s21_grep.c -e enD > a");
+system("./test_grep -i -e incLude s21_grep.c -e enD > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ei_option3
+system("grep -i -e incLude s21_grep.c -e enD s21_grep.h > a");
+system("./test_grep -i -e incLude s21_grep.c -e enD s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ei_option4
+system("grep -i -e incLude -e enD s21_grep.c s21_grep.h > a");
+system("./test_grep -i -e incLude -e enD s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ei_option5
+system("grep -i -e incLude s21_grep.c -e enD s21_grep.h> a");
+system("./test_grep -i -e incLude s21_grep.c -e enD s21_grep.h> b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ei_option6
+system("grep -i -e incLude s21_grep.c -e enD s21_grep.h > a");
+system("./test_grep -i -e incLude s21_grep.c -e enD s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test ev_option1
+system("grep -v -e incLude s21_grep.c -e enD s21_grep.h > a");
+system("./test_grep -v -e incLude s21_grep.c -e enD s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ev_option2
+system("grep -v -e incLude -e enD s21_grep.c > a");
+system("./test_grep -v -e incLude -e enD s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ev_option3
+system("grep -v -e ' ' s21_grep.c -e enD > a");
+system("./test_grep -v -e ' ' s21_grep.c -e enD > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test ec_option1
+system("grep -c -e . s21_grep.c -e '.' > a");
+system("./test_grep -c -e . s21_grep.c -e '.' > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ec_option2
+system("grep -c -e . s21_grep.c -e '.' s21_grep.h > a");
+system("./test_grep -c -e . s21_grep.c -e '.' s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+
+#test iv_option1
+system("grep -i -v . s21_grep.c > a");
+system("./test_grep -i -v . s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test iv_option2
+system("grep -i -v inClude s21_grep.c > a");
+system("./test_grep -i -v inClude s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test iv_option3
+system("grep -i -v aaa s21_grep.c > a");
+system("./test_grep -i -v aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test iv_option4
+system("grep -i -v . s21_grep.c s21_grep.h > a");
+system("./test_grep -i -v . s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test iv_option5
+system("grep -i -v inClude s21_grep.c s21_grep.h > a");
+system("./test_grep -i -v inClude s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test iv_option6
+system("grep -i -v aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -i -v aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test ic_option1
+system("grep -i -c aaa s21_grep.c > a");
+system("./test_grep -i -c aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ic_option2
+system("grep -i -c inClu.e s21_grep.c > a");
+system("./test_grep -i -c inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ic_option3
+system("grep inClu.e -i -c s21_grep.c  > a");
+system("./test_grep inClu.e -i -c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ic_option4
+system("grep -i -c aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -i -c aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ic_option5
+system("grep -i -c inClu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -i -c inClu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ic_option6
+system("grep inClu.e -i -c s21_grep.c s21_grep.h > a");
+system("./test_grep inClu.e -i -c s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+
+#test il_option1
+system("grep -i -l aaa s21_grep.c > a");
+system("./test_grep -i -l aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test il_option2
+system("grep -i -l inClu.e s21_grep.c > a");
+system("./test_grep -i -l inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test il_option3
+system("grep inClu.e s21_grep.c -i -l > a");
+system("./test_grep inClu.e s21_grep.c -i -l > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test il_option4
+system("grep -i -l aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -i -l aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test il_option5
+system("grep -i -l inClu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -i -l inClu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test il_option6
+system("grep inClu.e s21_grep.c -i -l s21_grep.h > a");
+system("./test_grep inClu.e s21_grep.c -i -l s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+
+#test in_option1
+system("grep -i -n aaa s21_grep.c > a");
+system("./test_grep -i -n aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test in_option2
+system("grep -i -n inClu.e s21_grep.c > a");
+system("./test_grep -i -n inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test in_option3
+system("grep inClu.e s21_grep.c -i -n > a");
+system("./test_grep inClu.e s21_grep.c -i -n > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test in_option4
+system("grep -i -n aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -i -n aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test in_option5
+system("grep -i -n inClu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -i -n inClu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test in_option6
+system("grep inClu.e s21_grep.c -i -n s21_grep.h > a");
+system("./test_grep inClu.e s21_grep.c -i -n s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test vc_option1
+system("grep -v -c aaa s21_grep.c > a");
+system("./test_grep -v -c aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vc_option2
+system("grep -v -c inClu.e s21_grep.c > a");
+system("./test_grep -v -c inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vc_option3
+system("grep inClu.e s21_grep.c -v -c > a");
+system("./test_grep inClu.e s21_grep.c -v -c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vc_option4
+system("grep -v -c aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -v -c aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vc_option5
+system("grep -v -c inClu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -v -c inClu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vc_option6
+system("grep inClu.e s21_grep.c -v -c s21_grep.h > a");
+system("./test_grep inClu.e s21_grep.c -v -c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test vl_option1
+system("grep -v -l aaa s21_grep.c > a");
+system("./test_grep -v -l aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vl_option2
+system("grep -v -l inClu.e s21_grep.c > a");
+system("./test_grep -v -l inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vl_option3
+system("grep inClu.e s21_grep.c -v -l > a");
+system("./test_grep inClu.e s21_grep.c -v -l > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vl_option4
+system("grep -v -l aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -v -l aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vl_option5
+system("grep -v -l inClu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -v -l inClu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vl_option6
+system("grep inClu.e s21_grep.c -v -l s21_grep.h > a");
+system("./test_grep inClu.e s21_grep.c -v -l s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+
+#test vn_option1
+system("grep -v -n aaa s21_grep.c > a");
+system("./test_grep -v -n aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vn_option2
+system("grep -v -n inClu.e s21_grep.c > a");
+system("./test_grep -v -n inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test vn_option3
+system("grep inClu.e s21_grep.c -v -n > a");
+system("./test_grep inClu.e s21_grep.c -v -n > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test cl_option1
+system("grep -c -l aaa s21_grep.c > a");
+system("./test_grep -c -l aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test cl_option2
+system("grep -c -l inClu.e s21_grep.c > a");
+system("./test_grep -c -l inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test cl_option3
+system("grep inClu.e s21_grep.c -c -l > a");
+system("./test_grep inClu.e s21_grep.c -c -l > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test cn_option1
+system("grep -c -n aaa s21_grep.c > a");
+system("./test_grep -c -n aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test cn_option2
+system("grep -c -n inClu.e s21_grep.c > a");
+system("./test_grep -c -n inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test cn_option3
+system("grep inClu.e s21_grep.c -c -n > a");
+system("./test_grep inClu.e s21_grep.c -c -n > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test ln_option1
+system("grep -n -l aaa s21_grep.c > a");
+system("./test_grep -n -l aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ln_option2
+system("grep -n -l inClu.e s21_grep.c > a");
+system("./test_grep -n -l inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test nl_option3
+system("grep inClu.e s21_grep.c -n -l > a");
+system("./test_grep inClu.e s21_grep.c -n -l > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test he_option1
+system("grep -h -e aaa s21_grep.c > a");
+system("./test_grep -h -e aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test he_option2
+system("grep -h -e inclu.e s21_grep.c > a");
+system("./test_grep -h -e inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test he_option3
+system("grep -e inclu.e s21_grep.c -h > a");
+system("./test_grep -e inclu.e s21_grep.c -h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test he_option4
+system("grep -h -e aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -h -e aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test he_option5
+system("grep -h -e inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -h -e inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test he_option6
+system("grep -e inclu.e s21_grep.c -h s21_grep.h > a");
+system("./test_grep -e inclu.e s21_grep.c -h s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test hi_option1
+system("grep -h -i aaa s21_grep.c > a");
+system("./test_grep -h -i aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hi_option2
+system("grep -h -i inClu.e s21_grep.c > a");
+system("./test_grep -h -i inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hi_option3
+system("grep -i inClu.e s21_grep.c -h > a");
+system("./test_grep -i inClu.e s21_grep.c -h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hi_option4
+system("grep -h -i aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -h -i aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hi_option5
+system("grep -h -i inClu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -h -i inClu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hi_option6
+system("grep -i inClu.e s21_grep.c -h s21_grep.h > a");
+system("./test_grep -i inClu.e s21_grep.c -h s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+#test hv_option1
+system("grep -h -v aaa s21_grep.c > a");
+system("./test_grep -h -v aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hv_option2
+system("grep -h -v inclu.e s21_grep.c > a");
+system("./test_grep -h -v inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hv_option6
+system("grep -v inclu.e s21_grep.c -h > a");
+system("./test_grep -v inclu.e s21_grep.c -h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hv_option3
+system("grep -h -v aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -h -v aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hv_option4
+system("grep -h -v inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -h -v inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hv_option5
+system("grep -v inClu.e s21_grep.c -h s21_grep.h > a");
+system("./test_grep -v inClu.e s21_grep.c -h s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test hc_option1
+system("grep -h -c aaa s21_grep.c > a");
+system("./test_grep -h -c aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hc_option2
+system("grep -h -c inclu.e s21_grep.c > a");
+system("./test_grep -h -c inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hc_option6
+system("grep -c inclu.e s21_grep.c -h > a");
+system("./test_grep -c inclu.e s21_grep.c -h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hc_option3
+system("grep -h -c aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -h -c aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hc_option4
+system("grep -h -c inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -h -c inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hc_option5
+system("grep -c inClu.e s21_grep.c -h s21_grep.h > a");
+system("./test_grep -c inClu.e s21_grep.c -h s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test hl_option1
+system("grep -h -l aaa s21_grep.c > a");
+system("./test_grep -h -l aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hl_option2
+system("grep -h -l inclu.e s21_grep.c > a");
+system("./test_grep -h -l inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hl_option6
+system("grep -l inclu.e s21_grep.c -h > a");
+system("./test_grep -l inclu.e s21_grep.c -h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hl_option3
+system("grep -h -l aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -h -l aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hl_option4
+system("grep -h -l inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -h -l inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hl_option5
+system("grep -l inClu.e s21_grep.c -h s21_grep.h > a");
+system("./test_grep -l inClu.e s21_grep.c -h s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test hn_option1
+system("grep -h -n aaa s21_grep.c > a");
+system("./test_grep -h -n aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hn_option2
+system("grep -h -n inclu.e s21_grep.c > a");
+system("./test_grep -h -n inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hn_option6
+system("grep -n inclu.e s21_grep.c -h > a");
+system("./test_grep -n inclu.e s21_grep.c -h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hn_option3
+system("grep -h -n aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -h -n aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hn_option4
+system("grep -h -n inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -h -n inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test hn_option5
+system("grep -n inClu.e s21_grep.c -h s21_grep.h > a");
+system("./test_grep -n inClu.e s21_grep.c -h s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test se_option1
+system("grep -s -e aaa s21_grep.c > a");
+system("./test_grep -s -e aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test se_option2
+system("grep -s -e inclu.e s21_grep.c > a");
+system("./test_grep -s -e inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test se_option6
+system("grep -e inclu.e s21_grep.c -s > a");
+system("./test_grep -e inclu.e s21_grep.c -s > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test se_option3
+system("grep -s -e aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -s -e aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test se_option4
+system("grep -s -e inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -s -e inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test se_option5
+system("grep -e inclu.e s21_grep.c -s s21_grep.h > a");
+system("./test_grep -e inclu.e s21_grep.c -s s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test si_option1
+system("grep -s -i aaa s21_grep.c > a");
+system("./test_grep -s -i aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test si_option2
+system("grep -s -i inClu.e s21_grep.c > a");
+system("./test_grep -s -i inClu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test si_option6
+system("grep -i inClu.e s21_grep.c -s > a");
+system("./test_grep -i inClu.e s21_grep.c -s > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test si_option3
+system("grep -s -i aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -s -i aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test si_option4
+system("grep -s -i inClu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -s -i inClu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test si_option5
+system("grep -i inClu.e s21_grep.c -s s21_grep.h > a");
+system("./test_grep -i inClu.e s21_grep.c -s s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+#test sv_option1
+system("grep -s -v aaa s21_grep.c > a");
+system("./test_grep -s -v aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sv_option2
+system("grep -s -v inclu.e s21_grep.c > a");
+system("./test_grep -s -v inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sv_option6
+system("grep -v inclu.e s21_grep.c -s > a");
+system("./test_grep -v inclu.e s21_grep.c -s > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sv_option3
+system("grep -s -v aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -s -v aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sv_option4
+system("grep -s -v inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -s -v inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sv_option5
+system("grep -v inClu.e s21_grep.c -s s21_grep.h > a");
+system("./test_grep -v inClu.e s21_grep.c -s s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test sc_option1
+system("grep -s -c aaa s21_grep.c > a");
+system("./test_grep -s -c aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sc_option2
+system("grep -s -c inclu.e s21_grep.c > a");
+system("./test_grep -s -c inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sc_option3
+system("grep -c inclu.e s21_grep.c -s > a");
+system("./test_grep -c inclu.e s21_grep.c -s > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sc_option6
+system("grep -s -c aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -s -c aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sc_option4
+system("grep -s -c inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -s -c inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sc_option5
+system("grep -c inClu.e s21_grep.c -s s21_grep.h > a");
+system("./test_grep -c inClu.e s21_grep.c -s s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test sl_option1
+system("grep -s -l aaa s21_grep.c > a");
+system("./test_grep -s -l aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sl_option2
+system("grep -s -l inclu.e s21_grep.c > a");
+system("./test_grep -s -l inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sl_option3
+system("grep -l inclu.e s21_grep.c -s > a");
+system("./test_grep -l inclu.e s21_grep.c -s > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sl_option6
+system("grep -s -l aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -s -l aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sl_option4
+system("grep -s -l inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -s -l inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sl_option5
+system("grep -l inClu.e s21_grep.c -s s21_grep.h > a");
+system("./test_grep -l inClu.e s21_grep.c -s s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test sn_option1
+system("grep -s -n aaa s21_grep.c > a");
+system("./test_grep -s -n aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sn_option2
+system("grep -s -n inclu.e s21_grep.c > a");
+system("./test_grep -s -n inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sn_option3
+system("grep -n inclu.e s21_grep.c -s > a");
+system("./test_grep -n inclu.e s21_grep.c -s > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sn_option6
+system("grep -s -n aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -s -n aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sn_option4
+system("grep -s -n inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -s -n inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sn_option5
+system("grep -n inClu.e s21_grep.c -s s21_grep.h > a");
+system("./test_grep -n inClu.e s21_grep.c -s s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test sh_option1
+system("grep -s -h aaa s21_grep.c > a");
+system("./test_grep -s -h aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sh_option2
+system("grep -s -h inclu.e s21_grep.c > a");
+system("./test_grep -s -h inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sh_option3
+system("grep -h inclu.e s21_grep.c -s > a");
+system("./test_grep -h inclu.e s21_grep.c -s > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sh_option6
+system("grep -s -h aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -s -h aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sh_option4
+system("grep -s -h inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -s -h inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test sh_option5
+system("grep -h inClu.e s21_grep.c -s s21_grep.h > a");
+system("./test_grep -h inClu.e s21_grep.c -s s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test ef_option1
+system("grep -f text.txt -e aaa s21_grep.c > a");
+system("./test_grep -f text.txt -e aaa s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ef_option2
+system("grep -f text.txt -e inclu.e s21_grep.c > a");
+system("./test_grep -f text.txt -e inclu.e s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ef_option3
+system("grep -e inclu.e s21_grep.c -f text.txt > a");
+system("./test_grep -e inclu.e s21_grep.c -f text.txt > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ef_option6
+system("grep -f text.txt -e aaa s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -e aaa s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ef_option4
+system("grep -f text.txt -e inclu.e s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -e inclu.e s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ef_option5
+system("grep -e inclu.e s21_grep.c -f text.txt s21_grep.h > a");
+system("./test_grep -e inclu.e s21_grep.c -f text.txt s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test fi_option1
+system("grep -f text.txt -i s21_grep.c > a");
+system("./test_grep -f text.txt -i s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fi_option2
+system("grep -f text.txt -i s21_grep.c > a");
+system("./test_grep -f text.txt -i s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fi_option3
+system("grep -i s21_grep.c -f text.txt > a");
+system("./test_grep -i s21_grep.c -f text.txt > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fi_option6
+system("grep -f text.txt -i s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -i s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fi_option4
+system("grep -f text.txt -i s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -i s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fi_option5
+system("grep -i s21_grep.c -f text.txt s21_grep.h > a");
+system("./test_grep -i s21_grep.c -f text.txt s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+#test fv_option1
+system("grep -f text.txt -v s21_grep.c > a");
+system("./test_grep -f text.txt -v s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fv_option2
+system("grep -f text.txt -v s21_grep.c > a");
+system("./test_grep -f text.txt -v s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fv_option3
+system("grep -v s21_grep.c -f text.txt > a");
+system("./test_grep -v s21_grep.c -f text.txt > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fv_option6
+system("grep -f text.txt -v s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -v s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fv_option4
+system("grep -f text.txt -v s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -v s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fv_option5
+system("grep -v s21_grep.c -f text.txt s21_grep.h > a");
+system("./test_grep -v s21_grep.c -f text.txt s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test fc_option1
+system("grep -f text.txt -c s21_grep.c > a");
+system("./test_grep -f text.txt -c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fc_option2
+system("grep -f text.txt -c s21_grep.c > a");
+system("./test_grep -f text.txt -c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fc_option3
+system("grep -c s21_grep.c -f text.txt > a");
+system("./test_grep -c s21_grep.c -f text.txt > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fc_option6
+system("grep -f text.txt -c s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -c s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fc_option4
+system("grep -f text.txt -c s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -c s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fc_option5
+system("grep -c s21_grep.c -f text.txt s21_grep.h > a");
+system("./test_grep -c s21_grep.c -f text.txt s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test fl_option1
+system("grep -f text.txt -l s21_grep.c > a");
+system("./test_grep -f text.txt -l s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fl_option2
+system("grep -f text.txt -l s21_grep.c > a");
+system("./test_grep -f text.txt -l s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fl_option3
+system("grep -l s21_grep.c -f text.txt > a");
+system("./test_grep -l s21_grep.c -f text.txt > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fl_option6
+system("grep -f text.txt -l s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -l s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fl_option4
+system("grep -f text.txt -l s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -l s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fl_option5
+system("grep -l s21_grep.c -f text.txt s21_grep.h > a");
+system("./test_grep -l s21_grep.c -f text.txt s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test fn_option1
+system("grep -f text.txt -n s21_grep.c > a");
+system("./test_grep -f text.txt -n s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fn_option2
+system("grep -f text.txt -n s21_grep.c > a");
+system("./test_grep -f text.txt -n s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fn_option3
+system("grep -n s21_grep.c -f text.txt > a");
+system("./test_grep -n s21_grep.c -f text.txt > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fn_option6
+system("grep -f text.txt -n s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -n s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fn_option4
+system("grep -f text.txt -n s21_grep.c s21_grep.h > a");
+system("./test_grep -f text.txt -n s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fn_option5
+system("grep -n s21_grep.c -f text.txt s21_grep.h > a");
+system("./test_grep -n s21_grep.c -f text.txt s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test fh_option1
+system("grep -ftext.txt -h s21_grep.c > a");
+system("./test_grep -ftext.txt -h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fh_option2
+system("grep -ftext.txt -h s21_grep.c > a");
+system("./test_grep -ftext.txt -h s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fh_option3
+system("grep -h s21_grep.c -ftext.txt > a");
+system("./test_grep -h s21_grep.c -ftext.txt > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fh_option6
+system("grep -ftext.txt -h s21_grep.c s21_grep.h > a");
+system("./test_grep -ftext.txt -h s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fh_option4
+system("grep -ftext.txt -h s21_grep.c s21_grep.h > a");
+system("./test_grep -ftext.txt -h s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test fh_option5
+system("grep -h s21_grep.c -ftext.txt s21_grep.h > a");
+system("./test_grep -h s21_grep.c -ftext.txt s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test o_option1
+system("grep -o include s21_grep.c > a");
+system("./test_grep -o include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test o_option2
+system("grep -o int s21_grep.c > a");
+system("./test_grep -o int s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test o_option3
+system("grep -o incLude s21_grep.c > a");
+system("./test_grep -o incLude s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test o_option6
+system("grep -o Void s21_grep.c s21_grep.h > a");
+system("./test_grep -o Void s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test o_option4
+system("grep -o 'int ' s21_grep.c s21_grep.h > a");
+system("./test_grep -o 'int ' s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test o_option5
+system("grep -o 'else iF' s21_grep.c s21_grep.h > a");
+system("./test_grep -o 'else iF' s21_grep.c s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test oe_option1
+system("grep -o -e include s21_grep.c > a");
+system("./test_grep -o -e include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test oe_option2
+system("grep -o -e int -e int s21_grep.c > a");
+system("./test_grep -o -e int -e int s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test oe_option3
+system("grep -o -e incLude -e eee -e int s21_grep.c > a");
+system("./test_grep -o -e incLude -e eee -e int s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test oe_option6
+system("grep -o -e if s21_grep.c -e else s21_grep.h > a");
+system("./test_grep -o -e if s21_grep.c -e else s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test oe_option4
+system("grep -o -e int s21_grep.c -e int s21_grep.h > a");
+system("./test_grep -o -e int s21_grep.c -e int s21_grep.h > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test oi_option1
+system("grep -o -i incLUde s21_grep.c > a");
+system("./test_grep -o -i incLUde s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test oi_option2
+system("grep -o -i VOId s21_grep.c > a");
+system("./test_grep -o -i VOId s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test oi_option3
+system("grep -o -i Int s21_grep.c s21_grep.c > a");
+system("./test_grep -o -i Int s21_grep.c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test ov_option1
+system("grep -o -v include s21_grep.c > a");
+system("./test_grep -o -v include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ov_option2
+system("grep -o -v void s21_grep.c > a");
+system("./test_grep -o -v void s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ov_option3
+system("grep -o -v -e int -e int s21_grep.c s21_grep.c > a");
+system("./test_grep -o -v -e int -e int s21_grep.c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test ol_option1
+system("grep -o -l include s21_grep.c > a");
+system("./test_grep -o -l include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ol_option2
+system("grep -o -l void s21_grep.c > a");
+system("./test_grep -o -l void s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test ol_option3
+system("grep -o -l -e int -e int s21_grep.c s21_grep.c > a");
+system("./test_grep -o -l -e int -e int s21_grep.c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test on_option1
+system("grep -o -n include s21_grep.c > a");
+system("./test_grep -o -n include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test on_option2
+system("grep -o -n void s21_grep.c > a");
+system("./test_grep -o -n void s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test on_option3
+system("grep -o -n -e int -e int s21_grep.c s21_grep.c > a");
+system("./test_grep -o -n -e int -e int s21_grep.c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test oh_option1
+system("grep -o -h include s21_grep.c > a");
+system("./test_grep -o -h include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test oh_option2
+system("grep -o -h void s21_grep.c > a");
+system("./test_grep -o -h void s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test oh_option3
+system("grep -o -h -e int -e int s21_grep.c s21_grep.c > a");
+system("./test_grep -o -h -e int -e int s21_grep.c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test os_option1
+system("grep -o s include s21_grep.c > a");
+system("./test_grep -o s include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test os_option2
+system("grep -o s void s21_grep.cpp > a");
+system("./test_grep -o s void s21_grep.cpp > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test os_option3
+system("grep -o s -e int -e int s21_grep.c s21_grep.cpp > a");
+system("./test_grep -o s -e int -e int s21_grep.c s21_grep.cpp > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+
+
+#test of_option1
+system("grep -o -ftext.txt include s21_grep.c > a");
+system("./test_grep -o -ftext.txt include s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test of_option2
+system("grep -o -ftext.txt void s21_grep.c > a");
+system("./test_grep -o -ftext.txt void s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
+
+#test of_option3
+system("grep -o -ftext.txt -e int -e int s21_grep.c s21_grep.c > a");
+system("./test_grep -o -ftext.txt -e int -e int s21_grep.c s21_grep.c > b");
+ck_assert_int_eq(system("diff a b"), 0);
